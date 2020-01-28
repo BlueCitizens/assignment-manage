@@ -1,0 +1,159 @@
+<script src="../../static/js/jquerysession.js"></script>
+<script type="text/javascript">
+    function fmtDate(inputTime) {
+        var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ":" + second;
+    }
+
+    $(document).ready(function () {
+        //创建一个formData对象
+        var stu_id = $.session.get('stu_id');
+        console.log(stu_id);
+        //files 添加到formData中，键值对形式
+        $.ajax({
+            type: 'POST',
+            url: '/get_own_history',
+            data: "stu_id=" + stu_id,
+            /*beforeSend: function () {
+                //发送之前的动作
+                alert("");
+            },*/
+            success: function (data) {
+                var tbody = document.getElementById("history_body");
+                console.log(data);
+                for (var i in data) { //遍历data 数组时，i为索引
+                    console.log(data[i]);
+                    var row = document.createElement('tr');
+                    // 创建td单元格
+                    var idCell = document.createElement('td');
+                    var course_id_Cell = document.createElement('td');
+                    var work_id_Cell = document.createElement('td');
+                    var fileName_Cell = document.createElement('td');
+                    var version_Cell = document.createElement('td');
+                    var time_Cell = document.createElement('td');
+                    // 给创建的td单元格填充数据
+                    idCell.innerHTML = data[i].business_id;
+                    course_id_Cell.innerHTML = " ";
+                    work_id_Cell.innerHTML = data[i].work_id;
+                    fileName_Cell.innerHTML = data[i].file_name;
+                    version_Cell.innerHTML = data[i].version;
+                    time_Cell.innerHTML = fmtDate(data[i].time);
+                    // 添加点击函数
+                    row.onclick = function () {
+                        alert("删除吗");
+                    }
+                    // 将新建的td加入新建的tr行
+                    row.appendChild(idCell);
+                    row.appendChild(course_id_Cell);
+                    row.appendChild(work_id_Cell);
+                    row.appendChild(fileName_Cell);
+                    row.appendChild(version_Cell);
+                    row.appendChild(time_Cell);
+                    // 将这行加到tbody
+                    tbody.appendChild(row);
+                }
+                $('#history-table').DataTable({});
+            },
+            error: function (responseStr) {
+                //出错后的动作
+                alert("出错,请联系管理员");
+            }
+        });
+
+        $('#multi-filter-select').DataTable({
+            "pageLength": 5,
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+    })
+</script>
+<div class="page-header">
+    <h4 class="page-title">提交历史</h4>
+    <ul class="breadcrumbs">
+        <li class="nav-home">
+            <a href="#">
+                <i class="flaticon-home"></i>
+            </a>
+        </li>
+        <li class="separator">
+            <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">提交历史</a>
+        </li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">历史记录</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="history-table" class="display table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>流水ID</th>
+                            <th>学科号</th>
+                            <th>作业号</th>
+                            <th>文件名</th>
+                            <th>版本</th>
+                            <th>时间</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>流水ID</th>
+                            <th>学科号</th>
+                            <th>作业号</th>
+                            <th>文件名</th>
+                            <th>版本</th>
+                            <th>时间</th>
+                        </tr>
+                        </tfoot>
+                        <tbody id="history_body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Datatables -->
+<script src="../../assets/js/plugin/datatables/datatables.min.js"></script>
+<!-- Azzara DEMO methods, don't include it in your project! -->
+<script src="../../assets/js/setting-demo.js"></script>
+<script>
+    $(document).ready(function () {
+    });
+</script>

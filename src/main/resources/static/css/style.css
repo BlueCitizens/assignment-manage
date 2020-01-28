@@ -1,0 +1,449 @@
+/*
+Design by TemplateAccess.com
+Released for free under a Creative Commons Attribution 3.0 License
+*/
+@charset "utf-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	background: #19191a url(images/main_bg.gif) top repeat-x;
+}
+
+html {
+	padding: 0;
+	margin: 0;
+}
+
+li.bg, .bg {
+	clear: both;
+	border-bottom: 1px dashed #818181;
+	padding: 0;
+	margin: 10px 0;
+	background: none;
+	list-style: none;
+}
+
+p.clr, .clr {
+	clear: both;
+	padding: 0;
+	margin: 0;
+}
+
+.main {
+	margin: 0 auto;
+	padding: 0;
+}
+
+/* header */
+.header_resize {
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+}
+
+.header {
+	height: 600px;
+	margin: 0;
+	padding: 0;
+	background: #c0e4e6 url(images/main_vtb.png) top center repeat-y;
+}
+
+.header img {
+	margin: 0 auto;
+	padding: 0;
+}
+ 
+.content{
+	opacity: 0.85;
+}
+
+/* login */
+.login {
+	padding: 15px 0 0 0;
+	margin: 0;
+	width: 200px;
+	float: right;
+}
+
+.login form {
+	float: right;
+	padding: 0;
+	margin: 0;
+}
+
+.login span {
+	display: block;
+	float: right;
+	width: 190px;
+	padding: 0 0;
+	height: 31px;
+	color: #fff;
+}
+
+.login form .keywords {
+	width: 149px;
+	line-height: 14px;
+	height: 14px;
+	float: left;
+	background: none;
+	border: 0;
+	padding: 6px 2px;
+	margin: 0;
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #000;
+}
+
+.login form .button {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+/* login2 */
+.login2 {
+	padding: 15px 20px 0 0;
+	margin: 0 auto;
+}
+
+.login2 form {
+	float: right;
+	padding: 0;
+	margin: 0;
+}
+
+.login2 span {
+	display: block;
+	float: left;
+	background: url(images/login_bg_2.gif) left top no-repeat;
+	width: 180px;
+	padding: 4px 5px;
+	height: 31px;
+}
+
+.login2 form .keywords {
+	width: 149px;
+	line-height: 14px;
+	height: 14px;
+	float: left;
+	background: none;
+	border: 0;
+	padding: 6px 2px;
+	margin: 0;
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #000;
+}
+
+.login2 form .button {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+/* logo */
+.logo {
+	margin: 0 auto;
+	padding: 1px 0 0 15px;
+}
+
+h1 {
+	margin: 0;
+	padding: 150px 0 24px 40px;
+	color: #fff;
+	font: normal 50px/1.2em Arial, Helvetica, sans-serif;
+	text-align: center;
+	font-size: 100px;
+	text-shadow: 1px 1px 12px #c0c0c0;
+}
+
+h1 a, h1 a:hover {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+h1 span {
+	font-weight: bold;
+	color: #c0e4e6;
+}
+
+h1 small {
+	font: 20px/1.2em SimHei;
+	color: #c7fdbd;
+	font-weight: bold;
+	text-shadow: 1px 1px 10px #47741b;
+}
+/*body*/
+.body_resize {
+	margin: 0 auto;
+	padding: 20px 0 0 0;
+	width: 930px;
+}
+
+.body {
+	background: #fff;
+	margin: 0;
+	padding: 10px 25px 40px 25px;
+}
+
+.body h2 {
+	font: normal 30px Arial, Helvetica, sans-serif;
+	color: #0ab3b9;
+	padding: 3px 0;
+	margin: 5px 0 10px 0;
+}
+
+.body h2 span {
+	color: #404a52;
+}
+
+.body p {
+	font: normal 12px Arial, Helvetica, sans-serif;
+	color: #4b4b4b;
+	padding: 5px 0;
+	margin: 0;
+	line-height: 1.8em;
+}
+
+.body p span {
+	font: bold 14px Arial, Helvetica, sans-serif;
+	color: #4b4b4b;
+	padding: 0;
+	margin: 0;
+}
+
+.body img {
+	float: right;
+	margin: 5px 5px 5px 15px;
+	padding: 0;
+}
+
+.body img.floated {
+	float: left;
+	margin: 5px 10px 5px 0;
+	padding: 0;
+}
+
+.body a {
+	color: #ea7d1b;
+	text-decoration: underline;
+}
+
+.left {
+	float: left;
+	width: 640px;
+	margin: 0;
+	padding: 0;
+}
+
+.right {
+	float: right;
+	width: 245px;
+	margin: 0;
+	padding: 0;
+}
+
+.right ul {
+	list-style: none;
+	margin: 5px 10px;
+	padding: 0;
+}
+
+.right li {
+	font: bold 12px Arial, Helvetica, sans-serif;
+	color: #0ab3b9;
+	border-bottom: 1px dashed #818181;
+	padding: 5px 0;
+}
+
+.right li span {
+	font: normal 11px Arial, Helvetica, sans-serif;
+	color: #999999;
+}
+
+.right li a {
+	background: url(images/ul_li.gif) left no-repeat;
+	padding: 0 0 0 15px;
+	margin: 0;
+	font: normal 14px Arial, Helvetica, sans-serif;
+	color: #404a52;
+	text-decoration: none;
+}
+
+.right li a:hover {
+	color: #ea7d1b;
+	text-decoration: none;
+}
+/* FBG */
+.FBG_resize {
+	margin: 0 auto;
+	padding: 0;
+	width: 930px;
+}
+
+.FBG {
+	background: #ea7d1b url(images/fbg_bg.gif) top repeat-x;
+	margin: 0;
+	padding: 0;
+}
+
+.FBG img {
+	float: left;
+	margin: 5px;
+	padding: 0;
+}
+
+.FBG h2 {
+	color: #fff;
+	font: normal 30px Arial, Helvetica, sans-serif;
+	padding: 3px 0;
+	margin: 5px 0 15px 0;
+}
+
+.FBG p {
+	color: #fff;
+	font: normal 12px Arial, Helvetica, sans-serif;
+	padding: 5px 0;
+	margin: 0;
+	line-height: 1.8em;
+}
+
+.FBG a {
+	color: #fff;
+	text-decoration: none;
+	font: bold 12px Arial, Helvetica, sans-serif;
+}
+
+.FBG ul {
+	list-style: none;
+	width: 120px;
+	float: left;
+	padding: 0;
+	margin: 10px 5px;
+}
+
+.FBG li {
+	padding: 2px 1px;
+	margin: 0;
+}
+
+.FBG li a {
+	color: #fff;
+	font: normal 12px Arial, Helvetica, sans-serif;
+	text-decoration: underline;
+}
+
+.FBG li a:hover {
+	color: #fff;
+	text-decoration: none;
+}
+
+.FBG .blok {
+	width: 280px;
+	float: left;
+	padding: 5px 15px;
+	margin: 0;
+}
+/* footer */
+.footer_resize {
+	margin: 0 auto;
+	padding: 25px 0;
+	width: 930px;
+}
+
+.footer {
+	padding: 0;
+	margin: 0 auto;
+	background: url(images/footer_bg.gif) top repeat-x;
+}
+
+.footer p {
+	color: #fff;
+	font: normal 12px Arial, Helvetica, sans-serif;
+	padding: 0 0 0 5px;
+	margin: 0;
+	line-height: 1.8em;
+}
+
+.footer p a {
+	color: #fff;
+	font: normal 12px Arial, Helvetica, sans-serif;
+}
+/********** contact form **********/
+#contactform {
+	margin: 0;
+	padding: 5px 0;
+}
+
+#contactform * {
+	color: #F00;
+}
+
+#contactform ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#contactform li {
+	margin: 0;
+	padding: 0;
+	background: none;
+	border: none;
+	display: block;
+	clear: both;
+}
+
+#contactform li.buttons {
+	margin: 5px 0 5px 0;
+}
+
+#contactform label {
+	margin: 0;
+	width: 110px;
+	display: block;
+	padding: 10px 0;
+	color: #666;
+	font: normal 12px Arial, Helvetica, sans-serif;
+	text-transform: capitalize;
+	float: left;
+}
+
+#contactform label span {
+	color: #F00;
+}
+
+#contactform input.text {
+	width: 480px;
+	border: 1px solid #c0c0c0;
+	margin: 2px 0;
+	padding: 5px 2px;
+	height: 16px;
+	background: #fff;
+	float: left;
+}
+
+#contactform textarea {
+	width: 480px;
+	border: 1px solid #c0c0c0;
+	margin: 2px 0;
+	padding: 2px;
+	background: #fff;
+	float: left;
+}
+
+#contactform li.buttons input {
+	border: 1px solid #000;
+	background: #ea7d1b;
+	padding: 10px;
+	margin: 10px 0 0 110px;
+	color: #fff;
+	float: left;
+	font: normal 12px Arial, Helvetica, sans-serif;
+}
+
+p.response {
+	text-align: center;
+	color: #F00;
+	font: normal 11px Georgia, "Times New Roman", Times, serif;
+	line-height: 1.8em;
+	width: auto;
+}

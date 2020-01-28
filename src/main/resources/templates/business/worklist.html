@@ -1,0 +1,176 @@
+<div class="page-header">
+    <h4 class="page-title">作业清单</h4>
+    <ul class="breadcrumbs">
+        <li class="nav-home">
+            <a href="#">
+                <i class="flaticon-home"></i>
+            </a>
+        </li>
+        <li class="separator">
+            <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">作业清单</a>
+        </li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <h4 class="card-title">上传作业</h4>
+                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                            data-target="#excelModal">
+                        <i class="fa fa-plus"></i>
+                        批量上传(beta)
+                    </button>
+                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                            data-target="#addRowModal">
+                        <i class="fa fa-info"></i>
+                        Tips
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">
+                    <li class="nav-item submenu">
+                        <a class="nav-link" id="pills-home-tab-nobd" data-toggle="pill" href="#pills-home-nobd"
+                           role="tab" aria-controls="pills-home-nobd" aria-selected="false"><i
+                                class="fas fa-th-large"></i>&nbsp;&nbsp;全部</a>
+                    </li>
+                    <li class="nav-item submenu">
+                        <a class="nav-link active show" id="pills-contact-tab-nobd" data-toggle="pill"
+                           href="#pills-contact-nobd" role="tab" aria-controls="pills-contact-nobd"
+                           aria-selected="false"><i
+                                class="fas fa-clock"></i>&nbsp;&nbsp;未提交</a>
+                    </li>
+                    <li class="nav-item submenu">
+                        <a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-profile-nobd"
+                           role="tab" aria-controls="pills-profile-nobd" aria-selected="true"><i
+                                class="fas fa-check-circle"></i>&nbsp;&nbsp;已提交</a>
+                    </li>
+                </ul>
+                <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
+                    <div class="tab-pane fade" id="pills-home-nobd" role="tabpanel"
+                         aria-labelledby="pills-home-tab-nobd">
+                        <div id="all-list-div" class="card-list">
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile-nobd" role="tabpanel"
+                         aria-labelledby="pills-profile-tab-nobd">
+                        <div id="done-list-div" class="card-list">
+
+                        </div>
+                    </div>
+                    <div class="tab-pane fade active show" id="pills-contact-nobd" role="tabpanel"
+                         aria-labelledby="pills-contact-tab-nobd">
+                        <div id="undo-list-div" class="card-list">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+    <!--child div start-->
+    <!--<div class="item-list">
+        <div class="col-sm-6 col-md-6 work-block" style="display: none">
+            <div class="card card-stats card-round">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-icon" style="width: 10%">
+                            <div class="icon-big text-center icon-info">
+                                <i class="fas fa-file-word"></i>
+                            </div>
+                        </div>
+                        <div class="col col-stats ml-3 ml-sm-0">
+                            <div class="numbers">
+                                <span class="course-id" style="display: none"></span>
+                                <p class="card-category course-name"></p>
+                                <span class="work-id" style="display: none"></span>
+                                <h4 class="card-title work-name"></h4>
+                            </div>
+                            <div class="info-user ml-3">
+                                <div class="username deadline">截止-</div>
+                                <div class="status naming-rule"></div>
+                            </div>
+                            <div>
+                                <input type="file" class="work-upload"
+                                       style="display: none"/>
+                                <button data-style="expand-left"
+                                        class="btn btn-icon btn-primary btn-round btn-sm ladda-button upload-button">
+                                    <i class="fa fa-upload"></i>
+                                </button>
+                                <button class="btn btn-icon btn-danger btn-round btn-sm preview-button">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!--child div end-->
+</div>
+<!-- Datatables -->
+<script src="../../assets/js/plugin/datatables/datatables.min.js"></script>
+<!-- Azzara DEMO methods, don't include it in your project! -->
+<script src="../../assets/js/setting-demo.js"></script>
+<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../assets/css/azzara.min.css">
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<!--<link rel="stylesheet" href="../../assets/css/demo.css">-->
+<script type="text/javascript" src="../static/js/worklist.js"></script>
+<link rel="stylesheet" href="../../static/css/ladda-themeless.min.css">
+<script src="../../static/js/spin.min.js"></script>
+<script src="../../static/js/ladda.min.js"></script>
+<script src="../../static/js/jquerysession.js"></script>
+<script>
+    $('#basic-datatables').DataTable({});
+
+    $('#multi-filter-select').DataTable({
+        "pageLength": 5,
+        initComplete: function () {
+            this.api().columns().every(function () {
+                var column = this;
+                var select = $('<select class="form-control"><option value=""></option></select>')
+                    .appendTo($(column.footer()).empty())
+                    .on('change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+
+                column.data().unique().sort().each(function (d, j) {
+                    select.append('<option value="' + d + '">' + d + '</option>')
+                });
+            });
+        }
+    });
+
+    // Add Row
+    $('#add-row').DataTable({
+        "pageLength": 5,
+    });
+
+    var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+    /*        $('#addRowButton').click(function () {
+                $('#add-row').dataTable().fnAddData([
+                    $("#addName").val(),
+                    $("#addPosition").val(),
+                    $("#addOffice").val(),
+                    action
+                ]);
+                $('#addRowModal').modal('hide');
+
+            });*/
+</script>

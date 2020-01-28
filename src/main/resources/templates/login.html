@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>Login</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport'/>
+    <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon"/>
+
+    <!-- Fonts and icons -->
+    <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: {"families": ["Open+Sans:300,400,600,700"]},
+            custom: {
+                "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands"],
+                urls: ['../assets/css/fonts.css']
+            },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+    <script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#login').click(function () {
+                var password = $('#password').val().trim();
+                var username = $('#username').val().trim();
+                if ($('#password').val() == "") {
+                    password = "pwd_undefined";
+                }
+                console.log(username + password);
+                $.ajax({
+                    type: "POST",
+                    url: "/loginvalidate",
+                    data: "username=" + username + "&password=" + password,
+                    /*            beforeSend: function () {
+                                    $("#loading").css("display", "block"); //点击登录后显示loading，隐藏输入框
+                                    $("#login").css("display", "none");
+                                },*/
+                    success: function (msg) {
+                        //$("#loading").hide(); //隐藏loading
+                        //parent.tb_remove();
+                        window.location.href = "/" + msg; //如果登录成功则跳到管理界面
+
+                    }
+                    /*complete: function (data) {
+                        $("#loading").css("display", "none"); //点击登录后显示loading，隐藏输入框
+                        $("#login").css("display", "block");
+                    },*/
+                    /*error: function (XMLHttpRequest, textStatus, thrownError) {
+                    }*/
+                });
+            });
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/azzara.min.css">
+</head>
+<body class="login">
+<div class="wrapper wrapper-login">
+    <div class="container container-login animated fadeIn">
+        <h3 class="text-center">Sign In To Your Index</h3>
+        <div class="login-form">
+            <div class="form-group">
+                <label for="username" class="placeholder"><b>Username</b></label>
+                <input id="username" name="username" type="text" class="form-control" placeholder="学号/管理员账号"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="placeholder"><b>Password</b></label>
+                <a href="#" class="link float-right">如果未设密码请直接登录</a>
+                <div class="position-relative">
+                    <input id="password" name="password" type="password" class="form-control">
+                    <div class="show-password">
+                        <i class="flaticon-interface"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-action-d-flex mb-3">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="rememberme">
+                    <label class="custom-control-label m-0" for="rememberme">Remember Me</label>
+                </div>
+                <!--<a href="#" class="btn btn-primary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Sign In</a>-->
+                <button id="login" class="btn btn-primary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Sign In
+                </button>
+            </div>
+            <!-- 				<div class="form-action">
+                <a href="#" class="btn btn-primary btn-rounded btn-login">Sign In</a>
+            </div> -->
+            <!--<div class="login-account">
+                <span class="msg">Don't have an account yet ?</span>
+                <a href="#" id="show-signup" class="link">Sign Up</a>
+            </div>-->
+        </div>
+    </div>
+
+    <!--<div class="container container-signup animated fadeIn">
+        <h3 class="text-center">Sign Up</h3>
+        <div class="login-form">
+            <div class="form-group">
+                <label for="fullname" class="placeholder"><b>Fullname</b></label>
+                <input id="fullname" name="fullname" type="text" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="email" class="placeholder"><b>Email</b></label>
+                <input id="email" name="email" type="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="passwordsignin" class="placeholder"><b>Password</b></label>
+                <div class="position-relative">
+                    <input id="passwordsignin" name="passwordsignin" type="password" class="form-control" required>
+                    <div class="show-password">
+                        <i class="flaticon-interface"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmpassword" class="placeholder"><b>Confirm Password</b></label>
+                <div class="position-relative">
+                    <input id="confirmpassword" name="confirmpassword" type="password" class="form-control" required>
+                    <div class="show-password">
+                        <i class="flaticon-interface"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row form-sub m-0">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="agree" id="agree">
+                    <label class="custom-control-label" for="agree">I Agree the terms and conditions.</label>
+                </div>
+            </div>
+            <div class="row form-action">
+                <div class="col-md-6">
+                    <a href="#" id="show-signin" class="btn btn-danger btn-link w-100 fw-bold">Cancel</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="#" class="btn btn-primary w-100 fw-bold">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>
+<script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+<script src="../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+<script src="../assets/js/ready.js"></script>
+</body>
+</html>
+<!--
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>VTPowerLogin</title>
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styleLog.css">
+
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/vector.js"></script>
+    <script>
+        window.onload = function () {
+            sessionStorage.setItem("aaa", "sxc");
+        }
+    </script>
+
+</head>
+<body>
+
+
+<div id="container">
+    <div id="output"></div>
+</div>
+
+<div class="bk">
+    <img alt="img" src="../static/imgs/logBk.png">
+</div>
+
+<div class="containerT">
+    <h1>契约召唤(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</h1>
+    <form class="form" id="entry_form" action="/dologin" accept-charset="UTF-8">
+        <input type="text" placeholder="用户名/邮箱" name="entry_name"> <input
+            type="password" placeholder="密码" name="entry_password">
+        <button type="submit" id="entry_btn">帕秋莉 ♂ go</button>
+        <div id="prompt" class="prompt">
+        </div>
+        <div class="reg">
+            没有账号？点击<a href="reg.jsp">co↑co↓</a>成为魔法少女吧！(´ω｀★)
+        </div>
+    </form>
+    &lt;!&ndash;<form id="upload" action="upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="fileupload">workflowupload</label>
+            <input type="file" name="uploadfile" class="form-control" id="fileupload"/>
+        </div>
+        <button type="submit" class="btn btn-primary">upload</button>
+    </form>&ndash;&gt;
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        Victor("container", "output"); //登陆背景函数
+        $("#entry_name").focus();
+        $(document).keydown(function (event) {
+            if (event.keyCode == 13) {
+                $("#entry_btn").click();
+            }
+        });
+    });
+</script>
+
+</body>
+</html>-->

@@ -1,0 +1,345 @@
+<script type="text/javascript">
+    function fileLoad(ele) {
+        //创建一个formData对象
+        var formData = new FormData();
+        formData.append('file', $('#fileupload')[0].files[0]);
+        //files 添加到formData中，键值对形式
+        $.ajax({
+            url: '/upload',
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false,
+            /*beforeSend: function () {
+                //发送之前的动作
+                alert("");
+            },*/
+            success: function (data) {
+                $('#temp-table').dataTable().fnClearTable();
+                /*alert("成功啦");*/
+                console.log(data);
+                for (var i in data) { //遍历data 数组时，i为索引
+                    console.log(data[i]);
+                    $('#temp-table').dataTable().fnAddData([
+                        data[i].stu_id,
+                        data[i].username,
+                    ]);
+                }
+            },
+            error: function (responseStr) {
+                //出错后的动作
+                alert("出错啦");
+            }
+        });
+    }
+
+    $(document).on('click', '#download-template', function () {
+        location = "dld_excel_temp";
+    })
+    $(function () {
+        var $input = $("#fileupload");
+        // ①为input设定change事件
+        $input.change(function () {
+            //    ②如果value不为空，调用文件加载方法
+            if ($(this).val() != "") {
+                if ($(this).val() == "" || $(this).isEmpty == true) {
+                    console.log("nmsl");
+                } else {
+                    console.log("2333");
+                }
+                fileLoad();
+            }
+        })
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'POST',
+            url: '/get_all_user',
+            success: function (data) {
+                var tbody = document.getElementById("user-body");
+                var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+                console.log(data);
+                for (var i in data) { //遍历data 数组时，i为索引
+                    console.log(data[i]);
+                    $('#users-table').dataTable().fnAddData([
+                        data[i].stu_id,
+                        data[i].username,
+                        data[i].password,
+                        action
+                    ]);
+                    /*var row = document.createElement('tr');
+                    // 创建td单元格
+                    var idCell = document.createElement('td');
+                    var name_Cell = document.createElement('td');
+                    var pwd_Cell = document.createElement('td');
+                    // 给创建的td单元格填充数据
+                    idCell.innerHTML = data[i].stu_id;
+                    name_Cell.innerHTML = data[i].username;
+                    pwd_Cell.innerHTML = data[i].password;
+                    // 将新建的td加入新建的tr行
+                    row.appendChild(idCell);
+                    row.appendChild(name_Cell);
+                    row.appendChild(pwd_Cell);
+                    // 将这行加到tbody
+                    tbody.appendChild(row);*/
+                }
+            },
+            error: function (responseStr) {
+                //出错后的动作
+                alert("出错,请联系管理员");
+            }
+        });
+    })
+</script>
+<script src="../static/js/stulist.js"></script>
+<!-- CSS Files -->
+<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../../assets/css/azzara.min.css">
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link rel="stylesheet" href="../../assets/css/demo.css">
+<div class="page-header">
+    <h4 class="page-title">成员管理</h4>
+    <ul class="breadcrumbs">
+        <li class="nav-home">
+            <a href="#">
+                <i class="flaticon-home"></i>
+            </a>
+        </li>
+        <li class="separator">
+            <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">管理选项</a>
+        </li>
+        <li class="separator">
+            <i class="flaticon-right-arrow"></i>
+        </li>
+        <li class="nav-item">
+            <a href="#">成员管理</a>
+        </li>
+    </ul>
+</div>
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex align-items-center">
+                    <h4 class="card-title">成员信息</h4>
+                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                            data-target="#excelModal">
+                        <i class="fa fa-plus"></i>
+                        Excel批量导入
+                    </button>
+                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                            data-target="#addRowModal">
+                        <i class="fa fa-plus"></i>
+                        增加
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Modal -->
+                <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title">
+														<span class="fw-mediumbold">
+														New</span>
+                                    <span class="fw-light">
+															Row
+														</span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--add row窗口-->
+                            <div class="modal-body">
+                                <p class="small">Create a new row using this form, make sure you fill
+                                    them all</p>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="form-group form-group-default">
+                                                <label>Name</label>
+                                                <input id="addName" type="text" class="form-control"
+                                                       placeholder="fill name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 pr-0">
+                                            <div class="form-group form-group-default">
+                                                <label>Position</label>
+                                                <input id="addPosition" type="text" class="form-control"
+                                                       placeholder="fill position">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group form-group-default">
+                                                <label>Office</label>
+                                                <input id="addOffice" type="text" class="form-control"
+                                                       placeholder="fill office">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer no-bd">
+                                <button type="button" id="addRowButton" class="btn btn-primary">Add
+                                </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="excelModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title">
+														<span class="fw-mediumbold">
+														Import</span>
+                                    <span class="fw-light">
+															Excel
+														</span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--add row窗口-->
+                            <div class="modal-body">
+                                <p class="small">选择Excel文件,批量导入,右侧下载模板。</p>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label>上传Excel工作簿(.xls/.xlsx)</label>
+                                            <input type="file" name="uploadfile" id="fileupload"/>
+                                            <button id="download-template" class="btn btn-link">
+											<span class="btn-label">
+												<i class="fa fa-link"></i>
+											</span>
+                                                Excel模板
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label>导入预览</label>
+                                            <table id="temp-table" class="table mt-3">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">学号</th>
+                                                    <th scope="col">姓名</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody id="temptable">
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!--<div class="col-md-6">
+                                        <div class="form-group form-group-default">
+                                            <label>Office</label>
+
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="modal-footer no-bd">
+                                <button type="button" id="conExcel" class="btn btn-primary">确认
+                                </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="users-table" class="display table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>密码</th>
+                            <th style="width: 10%">操作</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>学号</th>
+                            <th>姓名</th>
+                            <th>密码</th>
+                            <th style="width: 10%">操作</th>
+                        </tr>
+                        </tfoot>
+                        <tbody id="user-body">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Datatables -->
+<script src="../../assets/js/plugin/datatables/datatables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#basic-datatables').DataTable({});
+
+        $('#multi-filter-select').DataTable({
+            "pageLength": 5,
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select class="form-control"><option value=""></option></select>')
+                        .appendTo($(column.footer()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+
+        // Add Row
+        $('#temp-table').DataTable({
+            "paging": false,
+            "searching": false,
+        });
+
+        var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+        /*        $('#addRowButton').click(function () {
+                    $('#add-row').dataTable().fnAddData([
+                        $("#addName").val(),
+                        $("#addPosition").val(),
+                        $("#addOffice").val(),
+                        action
+                    ]);
+                    $('#addRowModal').modal('hide');
+
+                });*/
+    });
+</script>

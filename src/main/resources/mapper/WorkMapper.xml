@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bluec.vtpow.mapper.WorkMapper">
+    <!--    <resultMap id="getUploadMap" type="com.bluec.vtpow.pagemodel.FullWorkInfo">
+            <id property=""/>
+        </resultMap>-->
+
+    <!-- 查询所有 -->
+    <select id="findAll" resultType="com.bluec.vtpow.po.User">
+        SELECT * FROM user
+    </select>
+	<select id="getAllCourse" resultType="com.bluec.vtpow.pagemodel.Course">
+		SELECT  * FROM course;
+	</select>
+    <select id="getPathByWorkId" resultType="String">
+        SELECT path FROM worklist where work_id = #{work_id};
+    </select>
+
+    <select id="getWork" resultType="com.bluec.vtpow.pagemodel.FullWorkInfo">
+        SELECT
+	*
+FROM
+	(
+		(
+			SELECT
+				worklist_name.*, business_id,
+				file_name,
+				count AS version,
+				time,
+				stu_id
+			FROM
+				(
+					SELECT
+						worklist.*, course.course_name
+					FROM
+						worklist
+					LEFT JOIN course ON worklist.course_id = course.course_id
+				) AS worklist_name
+			LEFT JOIN (
+				SELECT
+					*, COUNT(*) AS count
+				FROM
+					upload_history
+				WHERE
+					stu_id = #{stu_id}
+				GROUP BY
+					stu_id,
+					work_id
+			) AS workgroup ON worklist_name.work_id = workgroup.work_id
+		) AS single_works
+	);
+    </select>
+	<select id="getAllWork" resultType="com.bluec.vtpow.pagemodel.Work">
+		SELECT
+	tab3.*, course_name
+FROM
+	(
+		SELECT
+			worklist.*, sub_count
+		FROM
+			(
+				SELECT
+					count(stu_id) AS sub_count,
+					tab1.*
+				FROM
+					(
+						SELECT
+							work_id,
+							file_name,
+							stu_id
+						FROM
+							upload_history
+						GROUP BY
+							work_id,
+							stu_id
+					) AS tab1
+				GROUP BY
+					work_id
+			) AS tab2
+		RIGHT JOIN worklist ON worklist.work_id = tab2.work_id
+	) AS tab3
+LEFT JOIN course ON course.course_id = tab3.course_id
+	</select>
+    <select id="getExactHistory" resultType="Integer">
+        SELECT version FROM upload_history WHERE stu_id = #{stu_id} AND work_id = #{work_id};
+    </select>
+    <select id="getHistoryByStuId" resultType="com.bluec.vtpow.po.UploadHistory">
+        SELECT * FROM upload_history WHERE stu_id = #{stu_id} order by business_id desc;
+    </select>
+    <insert id="addWork" parameterType="com.bluec.vtpow.po.WorkApply">
+        INSERT INTO worklist(work_name, course_id, naming_rule, path, deadline, status) VALUES (#{work_name}, #{course_id}, #{naming_rule}, #{path}, #{deadline}, #{status});
+    </insert>
+    <insert id="uploadWork">
+        INSERT IGNORE INTO upload_history(work_id, file_name, version, stu_id) VALUES (#{work_id}, #{fileName}, #{version}, #{stu_id});
+    </insert>
+
+    <!--批量插入 ignore 重复字段不返回异常，而是返回0标记冲突-->
+    <insert id="addBatchUser">
+        INSERT IGNORE INTO user(stu_id,name)
+        VALUES
+        <foreach collection="list" item="user" separator=",">
+            (#{user.stu_id},#{user.username})
+        </foreach>
+    </insert>
+</mapper>

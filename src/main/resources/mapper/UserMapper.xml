@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bluec.vtpow.mapper.UserMapper">
+    <resultMap id="getUploadMap" type="com.bluec.vtpow.po.User">
+        <id property="stu_id" column="stu_id"/>
+        <result property="username" column="name"/>
+        <result property="password" column="password"/>
+    </resultMap>
+    <!-- 查询所有 -->
+    <select id="findAll" resultMap="getUploadMap">
+        SELECT * FROM user
+    </select>
+    <select id="findByName" resultType="com.bluec.vtpow.po.User">
+        SELECT * FROM user where name = #{name} and password = #{password}
+    </select>
+    <!--批量插入 ignore 重复字段不返回异常，而是返回0标记冲突-->
+    <insert id="addBatchUser">
+        INSERT IGNORE INTO user(stu_id,name)
+        VALUES
+        <foreach collection="list" item="user" separator=",">
+            (#{user.stu_id},#{user.username})
+        </foreach>
+    </insert>
+</mapper>

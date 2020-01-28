@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Live2D 看板娘 v1.4 / Demo 2</title>
+    <!-- waifu-tips.js 依赖 JQuery 库 -->
+    <script src="../static/js/jquery.min.js"></script>
+
+    <!-- 实现拖动效果，需引入 JQuery UI -->
+    <script src="../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#download').click(function () {
+                location = '/download';
+            })
+            /*$.ajax({
+                url: "download",
+                type: 'post',
+                success:function (data) {
+                }
+            })*/
+        })
+    </script>
+</head>
+<body>
+<button id="download" href="download">下载</button>
+</body>
+</html>
