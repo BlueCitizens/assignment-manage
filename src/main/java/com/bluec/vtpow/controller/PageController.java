@@ -10,28 +10,28 @@ import javax.servlet.annotation.MultipartConfig;
 public class PageController {
 
 
-    @GetMapping({"index", "/"})
+    @GetMapping("index")
     public String index() {
         return "index";
     }
 
-    @GetMapping("stu_list")
+    @GetMapping("/sys/stu_list")
     public String getStuList() {
         return "system/stulist";
     }
 
-    @GetMapping("work_list")
+    @GetMapping("/sys/work_list")
     public String getWorkList() {
         return "system/worklist";
     }
 
-    @GetMapping("work_business")
+    @GetMapping("/bus/work_list")
     public String getWork() {
         return "business/worklist";
     }
 
-    @GetMapping("login")
-    public String ge() {
+    @GetMapping({"login","/"})
+    public String getLogin() {
         return "login";
     }
 

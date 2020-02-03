@@ -1,5 +1,6 @@
 package com.bluec.vtpow.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bluec.vtpow.pagemodel.Work;
 import com.bluec.vtpow.pagemodel.Course;
@@ -89,9 +90,8 @@ public class AdminController {
             String pwd_status = (String) session.getAttribute("status");
             System.out.println(username);
             User user = new User(id, username, pwd_status);
-            JSONObject jsonObject = new JSONObject();
-            System.out.println(jsonObject.toJSONString(user));
-            response.getWriter().write(jsonObject.toJSONString(user));
+            System.out.println(JSON.toJSONString(user));
+            response.getWriter().write(JSON.toJSONString(user));
         }
     }
 

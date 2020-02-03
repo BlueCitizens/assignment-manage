@@ -3,7 +3,7 @@ function LoadAjaxContent(url){
     $.ajax({
         mimeType: 'text/html; charset=utf-8', // ! Need set mimeType only when run from local file
         url: url,
-        type: 'GET',
+        type: 'POST',
         success: function(data) {
             $('#ajax-content').html(data);
             $('.preloader').hide();
@@ -34,7 +34,7 @@ $(document).ready(function () {
             window.location.hash = url;
             LoadAjaxContent(url);
         }
-        if ($(this).attr('href') == '#') {
+        if ($(this).attr('href') === '#') {
             e.preventDefault();
         }
     });

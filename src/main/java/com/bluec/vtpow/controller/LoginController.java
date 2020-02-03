@@ -23,7 +23,6 @@ public class LoginController {
     private LoginServiceImpl loginService;
 
     @RequestMapping(value = "/loginvalidate", method = RequestMethod.POST)
-    @ResponseBody
     public String loginvalidate(@RequestParam("username") String user_id, @RequestParam("password") String pwd, HttpSession httpSession) {
         System.out.println(user_id + pwd);
         System.out.println("name="+user_id);

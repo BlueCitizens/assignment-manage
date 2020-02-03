@@ -21,7 +21,7 @@
         });
     </script>
     <script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
         $(document).ready(function () {
             $('#login').click(function () {
                 var password = $('#password').val().trim();
@@ -53,7 +53,7 @@
                 });
             });
         });
-    </script>
+    </script>-->
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
@@ -64,30 +64,33 @@
     <div class="container container-login animated fadeIn">
         <h3 class="text-center">Sign In To Your Index</h3>
         <div class="login-form">
-            <div class="form-group">
-                <label for="username" class="placeholder"><b>Username</b></label>
-                <input id="username" name="username" type="text" class="form-control" placeholder="学号/管理员账号"
-                       required>
-            </div>
-            <div class="form-group">
-                <label for="password" class="placeholder"><b>Password</b></label>
-                <a href="#" class="link float-right">如果未设密码请直接登录</a>
-                <div class="position-relative">
-                    <input id="password" name="password" type="password" class="form-control">
-                    <div class="show-password">
-                        <i class="flaticon-interface"></i>
+            <form action="/form" method="post">
+                <div class="form-group">
+                    <label for="username" class="placeholder"><b>Username</b></label>
+                    <input id="username" name="username" type="text" class="form-control" placeholder="学号/管理员账号"
+                           required>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="placeholder"><b>Password</b></label>
+                    <a href="#" class="link float-right">如果未设密码请直接登录</a>
+                    <div class="position-relative">
+                        <input id="password" name="password" type="password" class="form-control">
+                        <div class="show-password">
+                            <i class="flaticon-interface"></i>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group form-action-d-flex mb-3">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="rememberme">
-                    <label class="custom-control-label m-0" for="rememberme">Remember Me</label>
+                <div class="form-group form-action-d-flex mb-3">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="rememberme">
+                        <label class="custom-control-label m-0" for="rememberme">Remember Me</label>
+                    </div>
+                    <!--<a href="#" class="btn btn-primary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Sign In</a>-->
+                    <button id="login" type="submit" class="btn btn-primary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Sign In
+                    </button>
                 </div>
-                <!--<a href="#" class="btn btn-primary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Sign In</a>-->
-                <button id="login" class="btn btn-primary col-md-5 float-right mt-3 mt-sm-0 fw-bold">Sign In
-                </button>
-            </div>
+            </form>
+
             <!-- 				<div class="form-action">
                 <a href="#" class="btn btn-primary btn-rounded btn-login">Sign In</a>
             </div> -->
