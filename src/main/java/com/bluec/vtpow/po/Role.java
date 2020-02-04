@@ -2,25 +2,36 @@ package com.bluec.vtpow.po;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.List;
+
 /**
  * @Author: BlueCitizens
  * @Date: 2020/2/2 23:33
  */
 public class Role implements GrantedAuthority {
 
-    private Long id;
+    private int id;
     private String name;
+    private List<Permission> permissions;
 
-    public Role(Long id, String name) {
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
+    public Role(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

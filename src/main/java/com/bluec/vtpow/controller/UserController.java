@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @Author: BlueCitizens
  * @Date: 2020/1/31 16:03
- * @Note: 测试security配置登录
+ * @Note: 测试security配置
  */
 @RestController
 public class UserController {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bluec.vtpow.mapper.PermissionMapper">
+    <!--<resultMap type="com.bluec.vtpow.po.User" id="userMap">
+        <id column="stu_id" property="stu_id" ></id>
+        <result column="name" property="username"/>
+        <result column="password" property="password"/>
+    </resultMap>-->
+
+    <select id="getPermsByRole" parameterType="Integer"  resultType="com.bluec.vtpow.po.Permission">
+    	SELECT
+	*
+FROM
+	permission
+WHERE
+	permission.pid IN (
+		SELECT
+			permissionid
+		FROM
+			role_permission
+		WHERE
+			role_permission.roleid = #{role_id}
+	)
+    </select>
+
+
+</mapper>

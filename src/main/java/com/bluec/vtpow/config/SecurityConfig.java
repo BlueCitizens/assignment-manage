@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,26 +36,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .authenticationProvider(provider);
     }
-
+    @Override
+    public void configure(WebSecurity web) {
+        //解决静态资源被拦截的问题
+        web.ignoring().antMatchers("/assets/**","/static/**");
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/bus/**", "/whoim").permitAll()
-                .antMatchers("/conf", "/index", "/bus/**").hasRole("USER")
-                .antMatchers("/sys/**").hasRole("ADMIN")
-                .and().exceptionHandling().accessDeniedPage("/404")
-                .and()
-                .formLogin()
-                .and()
-                .csrf().disable() //关闭CSRF
                 .formLogin().loginPage("/login")
                 .loginProcessingUrl("/form")
                 //.defaultSuccessUrl("/whoim") //成功登陆后跳转页面
                 //.failureUrl("/404")
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailHander)
-                .permitAll();
+                .permitAll()
+                .and()
+                .authorizeRequests()
+                .anyRequest().access("@rbacService.hasPermission(request,authentication)")
+                /*.antMatchers("/bus/**", "/whoim").permitAll()
+                .antMatchers("/conf", "/index", "/bus/**").hasRole("USER")
+                .antMatchers("/sys/**").hasRole("ADMIN")
+                .and().exceptionHandling().accessDeniedPage("/404")*/
+                .and()
+                .csrf().disable(); //关闭CSRF
     }
 
 }
