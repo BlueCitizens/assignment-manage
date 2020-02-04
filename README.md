@@ -7,6 +7,8 @@
   - 成员用户提交作业。
   - 下载单项作业压缩包。
   
+2020/2/3 初步整合了Spring Security框架实现带权限的拦截器
+  
   ![stulist](https://github.com/BlueCitizens/work-manage/blob/master/screenshots/stulist.gif)
   ![stulist](https://github.com/BlueCitizens/work-manage/blob/master/screenshots/uploadwork.gif)
   ![stulist](https://github.com/BlueCitizens/work-manage/blob/master/screenshots/worklist.gif)
