@@ -45,7 +45,7 @@ public class PageController {
         return "business/demo";
     }
 
-    @GetMapping("upload_history")
+    @GetMapping("/bus/upload_history")
     public String getHistory() {
         return "business/history";
     }

@@ -54,6 +54,28 @@ public class FileController {
         return msg;
     }
 
+    @RequestMapping(value = "/work_check", method = RequestMethod.POST)
+    public @ResponseBody
+    String workCheck(@RequestParam(value = "file", required = false) MultipartFile uploadfile, @RequestParam(value = "data", required = false) String data, HttpServletRequest request) throws Exception {
+        request.setCharacterEncoding("utf-8");
+        Part part;
+        part = request.getPart("file");
+        String fileName = FileUtil.getFileName(part);
+        JSONObject jsonObject = JSONObject.parseObject(data);
+        String stu_id = String.valueOf(jsonObject.get("stu_id"));
+        int work_id = Integer.parseInt(String.valueOf(jsonObject.get("work_id")));
+        InputStream inputStream = part.getInputStream();
+        String msg = fileServiceImpl.saveFile(work_id, fileName, inputStream);
+        if (msg.equals("save error")) {
+            return "save error";
+        }
+        msg += workServiceImpl.uploadWork(work_id, fileName, stu_id);
+        inputStream.close();
+        System.out.println("学生id和作业id：" + stu_id + work_id);
+        System.out.println("作业上传结果：" + msg);
+        return msg;
+    }
+
     //多文件压缩下载
 
     @RequestMapping("/download")

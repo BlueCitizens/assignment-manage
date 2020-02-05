@@ -32,10 +32,11 @@ public class RBACServiceImpl implements RBACService {
         {
             add("/index");
             add("/get_session");
-            add("/bus/work_list");
-            add("/sys/**");
+            add("/bus/**");
+            add("/sys/work_list");
             add("/get_own_work");
             add("/get_all_work");
+            add("/get_own_history");
         }
     };
 
@@ -56,6 +57,7 @@ public class RBACServiceImpl implements RBACService {
             //urls.add("/index");
 
             urls.addAll(general_urls);
+            System.out.println(urls.toString());
             // 注意这里不能用equal来判断，因为有些URL是有参数的，所以要用AntPathMatcher来比较
             for (String url : urls) {
                 if (antPathMatcher.match(url, request.getRequestURI())) {

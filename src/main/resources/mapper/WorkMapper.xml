@@ -9,7 +9,7 @@
     <select id="findAll" resultType="com.bluec.vtpow.po.User">
         SELECT * FROM user
     </select>
-	<select id="getAllCourse" resultType="com.bluec.vtpow.pagemodel.Course">
+    <select id="getAllCourse" resultType="com.bluec.vtpow.pagemodel.Course">
 		SELECT  * FROM course;
 	</select>
     <select id="getPathByWorkId" resultType="String">
@@ -50,7 +50,7 @@ FROM
 		) AS single_works
 	);
     </select>
-	<select id="getAllWork" resultType="com.bluec.vtpow.pagemodel.Work">
+    <select id="getAllWork" resultType="com.bluec.vtpow.pagemodel.Work">
 		SELECT
 	tab3.*, course_name
 FROM
@@ -91,6 +91,7 @@ LEFT JOIN course ON course.course_id = tab3.course_id
         INSERT INTO worklist(work_name, course_id, naming_rule, path, deadline, status) VALUES (#{work_name}, #{course_id}, #{naming_rule}, #{path}, #{deadline}, #{status});
     </insert>
     <insert id="uploadWork">
+		UPDATE upload_history SET status = 1 WHERE work_id = #{work_id};
         INSERT IGNORE INTO upload_history(work_id, file_name, version, stu_id) VALUES (#{work_id}, #{fileName}, #{version}, #{stu_id});
     </insert>
 

@@ -42,6 +42,8 @@ public class AdminController {
     WorkServiceImpl workService;
 
     //读取文件流，解析excel文件。返回list给前端ajax处理
+    // 实际上经过了ajax传Excel文件->controller解析返回->ajax返回list->controller导入的复杂过程
+    // 可以考虑直接通过前端代码解析
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public @ResponseBody
     List<User> fileupload(@RequestParam(value = "file", required = false) MultipartFile uploadfile, HttpServletRequest request) throws Exception {
@@ -62,8 +64,6 @@ public class AdminController {
     }
 
     // 批量导入学生（用户）信息
-    // 实际上经过了ajax传Excel文件->controller解析返回->ajax返回list->controller导入的复杂过程
-    // 可以考虑直接通过前端代码解析
     @RequestMapping(value = "/save_all", method = RequestMethod.POST)
     @ResponseBody
     public int uploadExcel(@RequestBody ArrayList<User> users, HttpServletRequest request) throws Exception {

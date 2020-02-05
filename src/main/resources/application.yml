@@ -13,7 +13,7 @@ spring:
     #mysql驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    #基本属性
-    url: jdbc:mysql://localhost:3306/zuoye?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+    url: jdbc:mysql://localhost:3306/zuoye?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
     username: root
     password: 123456
 

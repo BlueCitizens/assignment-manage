@@ -85,9 +85,9 @@ public class FileServiceImpl {
         File file = new File(path, fileName);
         FileOutputStream fileOutputStream = null;
         if (file.exists()) {
-            msg += "over_write file";
+            msg += "overwrite";
         } else {
-            msg += "write file";
+            msg += "write";
         }
         try {
             fileOutputStream = new FileOutputStream(file);

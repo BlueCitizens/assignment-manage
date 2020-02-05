@@ -3,19 +3,21 @@
 <link rel="stylesheet" href="../../assets/css/azzara.min.css">
 <script>
     $(document).ready(function () {
-        $ajax({
+        if(pwd_status === "no_pwd"){
+            $('#old-password').attr('disabled', 'disabled');
+        }
+        /*$ajax({
             url: "/password_conf",
             type: 'post',
             data:
-        })
+        })*/
     })
 </script>
-<h4 class="page-title">User Config</h4>
 <div class="row">
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <div class="card-title">Form Control Styles</div>
+                <div class="card-title">修改密码</div>
             </div>
             <div class="card-body">
                 <div class="form-group form-group-default">
