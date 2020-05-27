@@ -192,6 +192,7 @@ $(document).ready(function () {
             })
         }
     });
+
     /*        $('#start').datepicker({setDate: new Date(), dateFormat: 'yy-mm-dd'});
             $('#end').datepicker({setDate: new Date(), dateFormat: 'yy-mm-dd'});*/
 
@@ -200,15 +201,40 @@ $(document).ready(function () {
         console.log("hover"+$(this).attr('id'));
     })*/
 
-
-    //太坑了 每执行一次就会绑定一次 有事没事必须先解绑
+/*    $(document).on('click', '.preview-button', function () {
+        var work_id = $(this).parents('.work-block').find('.work-id').html();
+        console.log("work_id=" + work_id);
+        var url = '/bus/peek_work_myhistory?' + 'work_id=' + work_id;
+        $('#peek-myhistory-table').dataTable().fnClearTable();
+        $('#myhistory-peek').modal('show');
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function (data) {
+                console.log(data);
+                for (var i in data) { //遍历data 数组时，i为索引
+                    $('#peek-myhistory-table').dataTable().fnAddData([
+                        data[i].business_id,
+                        data[i].file_name,
+                        data[i].version,
+                        fmtDate(data[i].time)
+                    ]);
+                }
+            },
+            error: function (responseStr) {
+                //出错后的动作
+                alert("出错,请联系管理员");
+            }
+        });
+    });*/
+    //太坑了 每执行一次就会绑定一次 导致再次点击时会多次触发事件 必须先解绑
     $(document).off("click", '.upload-button');
     $(document).on('click', '.upload-button', function () {
-        console.log("click 触发");
+        //console.log("click 触发");
         $(this).parents('.work-block').find('.work-upload').click();
     });
     $(document).on('change', '.work-upload', function () {
-        console.log("onchange触发");
+        //console.log("onchange触发");
         //  如果value不为空，调用文件加载方法
         if ($(this).val() !== "" && $(this).isEmpty !== true) {
             var formData = new FormData();
@@ -224,7 +250,7 @@ $(document).ready(function () {
             var l = Ladda.create($(this).parent().find('.upload-button')[0]);
             //files 添加到formData中，键值对形式
             $.ajax({
-                url: '/work_upload',
+                url: '/bus/work_upload',
                 type: 'POST',
                 cache: false,
                 data: formData,

@@ -1,6 +1,8 @@
 package com.bluec.vtpow.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bluec.vtpow.pagemodel.FullWorkInfo;
 import com.bluec.vtpow.service.impl.FileServiceImpl;
 import com.bluec.vtpow.service.impl.WorkServiceImpl;
 import com.bluec.vtpow.util.FileUtil;
@@ -32,7 +34,8 @@ public class FileController {
     @Autowired
     WorkServiceImpl workServiceImpl;
 
-    @RequestMapping(value = "/work_upload", method = RequestMethod.POST)
+    //上传作业
+    @RequestMapping(value = "/bus/work_upload", method = RequestMethod.POST)
     public @ResponseBody
     String workUpload(@RequestParam(value = "file", required = false) MultipartFile uploadfile, @RequestParam(value = "data", required = false) String data, HttpServletRequest request) throws Exception {
         request.setCharacterEncoding("utf-8");
@@ -43,7 +46,7 @@ public class FileController {
         String stu_id = String.valueOf(jsonObject.get("stu_id"));
         int work_id = Integer.parseInt(String.valueOf(jsonObject.get("work_id")));
         InputStream inputStream = part.getInputStream();
-        String msg = fileServiceImpl.saveFile(work_id, fileName, inputStream);
+        String msg = fileServiceImpl.saveFile(stu_id, work_id, fileName, inputStream);
         if (msg.equals("save error")) {
             return "save error";
         }
@@ -54,6 +57,7 @@ public class FileController {
         return msg;
     }
 
+    //？？忘了这是干啥的
     @RequestMapping(value = "/work_check", method = RequestMethod.POST)
     public @ResponseBody
     String workCheck(@RequestParam(value = "file", required = false) MultipartFile uploadfile, @RequestParam(value = "data", required = false) String data, HttpServletRequest request) throws Exception {
@@ -65,7 +69,7 @@ public class FileController {
         String stu_id = String.valueOf(jsonObject.get("stu_id"));
         int work_id = Integer.parseInt(String.valueOf(jsonObject.get("work_id")));
         InputStream inputStream = part.getInputStream();
-        String msg = fileServiceImpl.saveFile(work_id, fileName, inputStream);
+        String msg = fileServiceImpl.saveFile(stu_id, work_id, fileName, inputStream);
         if (msg.equals("save error")) {
             return "save error";
         }
@@ -114,6 +118,12 @@ public class FileController {
 
         String file = this.getClass().getClassLoader().getResource("static/tempFiles/template.xlsx").getPath();//获取文件路径
         System.out.println(file);
-        FileUtil.downloadFileByPath(file,"模板.xlsx",response);
+        FileUtil.downloadFileByPath(file, "模板.xlsx", response);
+    }
+
+    @RequestMapping(value = "/peek_path_filename", method = RequestMethod.POST)
+    public @ResponseBody
+    JSONArray getPathFileName(@RequestParam("work_id") int work_id) throws Exception {
+        return fileServiceImpl.getAllFileNameByPath(work_id);
     }
 }

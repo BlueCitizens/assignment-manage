@@ -14,6 +14,15 @@ public class UploadHistory implements Serializable {
     int version;
     Date time;
     String stu_id;
+    int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     @Override
     public String toString() {

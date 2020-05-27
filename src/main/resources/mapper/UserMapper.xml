@@ -21,4 +21,7 @@
             (#{user.stu_id},#{user.username})
         </foreach>
     </insert>
+    <update id="confPassword">
+        UPDATE user SET password = #{new_pwd} WHERE stu_id = #{user_id};
+    </update>
 </mapper>

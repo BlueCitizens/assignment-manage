@@ -20,17 +20,21 @@ public class UserServiceImpl implements com.bluec.vtpow.service.UserService {
     WorkMapper workMapper;
 
     @Override
-    public boolean saveAllUser(List<User> users){
+    public boolean saveAllUser(List<User> users) {
         userMapper.addBatchUser(users);
         return true;
     }
 
     @Override
-    public User findByName(String name,String password){
-        return userMapper.findByName(name,password);
+    public User findByName(String name, String password) {
+        return userMapper.findByName(name, password);
     }
 
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         return userMapper.findAll();
+    }
+
+    public int changePassword(String uid, String new_pwd) {
+        return userMapper.confPassword(uid, new_pwd);
     }
 }

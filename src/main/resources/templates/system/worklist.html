@@ -36,11 +36,11 @@
             url: '/get_all_work',
             success: function (data) {
                 var tbody = document.getElementById("work-body");
-                var action = '<td><div class="form-button-action"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"><i class="fa fa-edit"></i></button><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-success btn-lg download-task" data-original-title="Download Task"><i class="fas fa-download"></i></button></div></td>';
+                var action = '<td><div class="form-button-action"><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-secondary btn-lg peek-task" data-original-title="Peek Task"><i class="fa fa-eye"></i></button><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"><i class="fa fa-edit"></i></button><button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-success btn-lg download-task" data-original-title="Download Task"><i class="fas fa-download"></i></button></div></td>';
                 /* <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button>*/
-                console.log(data);
+                //console.log(data);
                 for (var i in data) { //遍历data 数组时，i为索引
-                    console.log(data[i]);
+                    //console.log(data[i]);
                     $('#works-table').dataTable().fnAddData([
                         data[i].work_id,
                         data[i].course_name,
@@ -77,9 +77,33 @@
             var course_name = $(this).closest('tr').children('td').eq(1).text();
             var work_name = $(this).closest('tr').children('td').eq(2).text();
             console.log("work_id=" + work_id);
-            var url = '/download?' + 'work_id=' + work_id + "&file_name=" + course_name + work_name;
-            location = url;
-        })
+            location = '/download?' + 'work_id=' + work_id + "&file_name=" + course_name + work_name;
+        });
+
+        $(document).on('click', '.peek-task', function () {
+            var work_id = $(this).closest('tr').children('td').eq(0).text();
+            //console.log("work_id=" + work_id);
+            var url = '/peek_path_filename?' + 'work_id=' + work_id;
+            $('#filename-peek').modal('show');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                success: function (data) {
+                    var tbody = document.getElementById("peek-filename-table");
+                    //console.log(data);
+                    $('#peek-filename-table').dataTable().fnClearTable();
+                    for (var i in data) { //遍历data 数组时，i为索引
+                        $('#peek-filename-table').dataTable().fnAddData([
+                            data[i].fileName
+                        ]);
+                    }
+                },
+                error: function (responseStr) {
+                    //出错后的动作
+                    alert("出错,请联系管理员");
+                }
+            });
+        });
 
         $('#multi-filter-select').DataTable({
             "pageLength": 5,
@@ -128,7 +152,7 @@
                 var tbody = document.getElementById("temptable");
                 tbody.innerHTML = "";
                 /*alert("成功啦");*/
-                console.log(data);
+                //console.log(data);
                 for (var i in data) { //遍历data 数组时，i为索引
                     console.log(data[i]);
                     var row = document.createElement('tr');
@@ -140,7 +164,7 @@
                     addressCell.innerHTML = data[i].username;
                     // 添加点击函数
                     row.onclick = function () {
-                        alert("删除吗");
+                        //alert("删除吗");
                     }
                     // 将新建的td加入新建的tr行
                     row.appendChild(idCell);
@@ -163,9 +187,7 @@
             //    ②如果value不为空，调用文件加载方法
             if ($(this).val() !== "") {
                 if ($(this).val() === "" || $(this).isEmpty === true) {
-                    console.log("nmsl");
                 } else {
-                    console.log("2333");
                 }
                 fileLoad();
             }
@@ -186,8 +208,8 @@
                     alert("第"+(i+1)+"行，第"+(j+1)+"个td的值："+$(this).text()+"。");
                 });*/
             });
-            console.log(timeList);
-            console.log(nameList);
+            //console.log(timeList);
+            //console.log(nameList);
             for (var i = 0; i < timeList.length; i++) {
                 keyArray.push({
                     stu_id: timeList[i],
@@ -205,9 +227,9 @@
                 success: function (data) {
                     if (data == 1) {
                         $('#context').text('');
-                        alert("评论成功！");
+                        alert("成功！");
                     } else {
-                        alert("评论失败！");
+                        alert("失败！");
                         return false;
                     }
                     getcomment();
@@ -408,6 +430,46 @@
                             <div class="modal-footer no-bd">
                                 <button type="button" id="conExcel" class="btn btn-primary">√
                                 </button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="filename-peek" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title">
+														<span class="fw-mediumbold">
+														文件</span>
+                                    <span class="fw-light">
+															预览
+														</span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--add row窗口-->
+                            <div class="modal-body">
+                                <p class="small">当前课程目录已上传到磁盘中的文件</p>
+                                <div class="row">
+                                    <table id="peek-filename-table" class="table mt-3">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer no-bd">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                                     Close
                                 </button>

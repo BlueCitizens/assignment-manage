@@ -42,6 +42,7 @@ public class LoginController {
             return "index";
         } else if (!username.equals("") && pwd.equals(realpwd)) {
             httpSession.setAttribute("username", username);
+            httpSession.setAttribute("id", user_id);
             httpSession.setAttribute("status", "yes_pwd");
             return "index";
         } else

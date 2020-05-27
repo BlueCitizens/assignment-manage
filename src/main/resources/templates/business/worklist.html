@@ -1,3 +1,33 @@
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.preview-button', function () {
+            var work_id = $(this).parents('.work-block').find('.work-id').html();
+            console.log("work_id=" + work_id);
+            var url = '/bus/peek_work_myhistory?' + 'work_id=' + work_id;
+            $('#peek-myhistory-table').dataTable().fnClearTable();
+            $('#myhistory-peek').modal('show');
+            $.ajax({
+                type: 'POST',
+                url: url,
+                success: function (data) {
+                    console.log(data);
+                    for (var i in data) { //遍历data 数组时，i为索引
+                        $('#peek-myhistory-table').dataTable().fnAddData([
+                            data[i].business_id,
+                            data[i].file_name,
+                            data[i].version,
+                            fmtDate(data[i].time)
+                        ]);
+                    }
+                },
+                error: function (responseStr) {
+                    //出错后的动作
+                    alert("出错,请联系管理员");
+                }
+            });
+        });
+    });
+</script>
 <div class="page-header">
     <h4 class="page-title">作业清单</h4>
     <ul class="breadcrumbs">
@@ -20,11 +50,11 @@
             <div class="card-header">
                 <div class="d-flex align-items-center">
                     <h4 class="card-title">上传作业</h4>
-                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
+                    <!--<button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
                             data-target="#excelModal">
                         <i class="fa fa-plus"></i>
                         批量上传(beta)
-                    </button>
+                    </button>-->
                     <button class="btn btn-primary btn-round ml-auto" data-toggle="modal"
                             data-target="#addRowModal">
                         <i class="fa fa-info"></i>
@@ -33,6 +63,49 @@
                 </div>
             </div>
             <div class="card-body">
+                <div class="modal fade" id="myhistory-peek" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title">
+														<span class="fw-mediumbold">
+														上传</span>
+                                    <span class="fw-light">
+															历史
+														</span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal"
+                                        aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--add row窗口-->
+                            <div class="modal-body">
+                                <p class="small">当前课程上传历史</p>
+                                <div class="row">
+                                    <table id="peek-myhistory-table" class="table mt-3">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">文件名</th>
+                                            <th scope="col">提交顺序</th>
+                                            <th scope="col">上传时间</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer no-bd">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">
                     <li class="nav-item submenu">
                         <a class="nav-link" id="pills-home-tab-nobd" data-toggle="pill" href="#pills-home-nobd"

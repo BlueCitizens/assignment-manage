@@ -38,4 +38,4 @@ spring:
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: ccom.bluec.vtpow.po
+  type-aliases-package: com.bluec.vtpow.po

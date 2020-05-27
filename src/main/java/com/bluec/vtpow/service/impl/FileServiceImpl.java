@@ -1,6 +1,9 @@
 package com.bluec.vtpow.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bluec.vtpow.mapper.WorkMapper;
+import com.bluec.vtpow.po.UploadHistory;
 import com.bluec.vtpow.po.WorkApply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: BlueCitizens
@@ -58,7 +63,8 @@ public class FileServiceImpl {
         } else {
             return "同名目录已存在!";
         }
-        String fileName = "abc.txt"; //文件名及类型
+        //生成目录说明文件 不需要就注释掉
+        String fileName = "说明readme.txt"; //文件名及类型
         File file = new File(path, fileName);
         if (!file.exists()) { //surround with try/catch
             try {
@@ -76,9 +82,21 @@ public class FileServiceImpl {
      * @param input 输入流
      * @throws IOException
      */
-    public final String saveFile(int work_id, String fileName, InputStream input) {
+    public final String saveFile(String stu_id, int work_id, String fileName, InputStream input) {
+        UploadHistory uploadHistoryOther = workMapper.getHistoryByFileName(fileName);
+        System.out.println(uploadHistoryOther == null);
+        //如果已存在其他用户上传的同名文件 返回错误
+        if (uploadHistoryOther != null) {
+            if (!stu_id.equals(uploadHistoryOther.getStu_id())) {
+                return "文件名冲突";
+            }
+        }
+        //上传逻辑优化 上传新文件先删除对应旧文件
+        UploadHistory uploadHistory = workMapper.getNewestUpload(work_id, stu_id);
+        System.out.println("旧的文件名：" + uploadHistory.getFile_name());
         String msg = "";
         String path = workMapper.getPathByWorkId(work_id);
+        deleteFile(path + "\\" + uploadHistory.getFile_name());
         System.out.println(path);
         int index;
         byte[] bytes = new byte[1024];
@@ -112,5 +130,47 @@ public class FileServiceImpl {
             e.printStackTrace();
         }
         return msg;
+    }
+
+    /**
+     * 删除文件	 * 	 * @param pathname	 * @return	 * @throws IOException
+     */
+    public static boolean deleteFile(String pathname) {
+        boolean result = false;
+        File file = new File(pathname);
+        if (file.exists()) {
+            file.delete();
+            result = true;
+            System.out.println(pathname + "old文件已经被成功删除");
+        }
+        return result;
+    }
+
+    List<String> fileNameList = null;
+
+    public JSONArray getAllFileNameByPath(int work_id){
+        fileNameList = new ArrayList<String>();
+        String path = workMapper.getPathByWorkId(work_id);
+        System.out.println(path);
+        File f = new File(path);
+        getFileName(f);
+        System.out.println(fileNameList);
+        JSONArray jsonObject = JSONArray.parseArray(fileNameList.toString());
+        return jsonObject;
+    }
+
+    //递归查找文件
+    public void getFileName(File file) {
+        if (file != null) {
+            File[] f = file.listFiles();
+            if (f != null) {
+                for (File value : f) {
+                    getFileName(value);
+                }
+            } else {
+                System.out.println(file);
+                fileNameList.add("{\"fileName\":\""+file.getName()+"\"}");
+            }
+        }
     }
 }

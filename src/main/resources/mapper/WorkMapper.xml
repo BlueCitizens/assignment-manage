@@ -87,6 +87,15 @@ LEFT JOIN course ON course.course_id = tab3.course_id
     <select id="getHistoryByStuId" resultType="com.bluec.vtpow.po.UploadHistory">
         SELECT * FROM upload_history WHERE stu_id = #{stu_id} order by business_id desc;
     </select>
+    <select id="getHistoryByFileName" resultType="com.bluec.vtpow.po.UploadHistory">
+        select * from upload_history where file_name = #{file_name};
+    </select>
+    <select id="peekMyHistoryByWork" resultType="com.bluec.vtpow.po.UploadHistory">
+        select * from upload_history where stu_id = #{stu_id} and work_id = #{work_id} order by version desc;
+    </select>
+    <select id="getNewestUpload" resultType="com.bluec.vtpow.po.UploadHistory">
+        select * from upload_history where work_id = #{work_id} and stu_id=#{stu_id} order by version desc limit 1;
+    </select>
     <insert id="addWork" parameterType="com.bluec.vtpow.po.WorkApply">
         INSERT INTO worklist(work_name, course_id, naming_rule, path, deadline, status) VALUES (#{work_name}, #{course_id}, #{naming_rule}, #{path}, #{deadline}, #{status});
     </insert>

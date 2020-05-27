@@ -3,14 +3,33 @@
 <link rel="stylesheet" href="../../assets/css/azzara.min.css">
 <script>
     $(document).ready(function () {
-        if(pwd_status === "no_pwd"){
+        if (pwd_status === "no_pwd") {
             $('#old-password').attr('disabled', 'disabled');
         }
-        /*$ajax({
-            url: "/password_conf",
-            type: 'post',
-            data:
-        })*/
+        $("#pwd-conf-btn").click(function () {
+            var d = {};
+            var t = $('#pwd-conf-form').serializeArray();
+            $.each(t, function () {
+                d[this.name] = this.value;
+            });
+            //alert(JSON.stringify(d));
+            $.ajax({
+                type: "post",
+                data: JSON.stringify(d),
+                contentType: 'application/json',
+                url: "/bus/pwd_conf",
+                success: function (data) {
+                    if (data === "ok") {
+                        $('#context').text('');
+                        alert("修改成功！请重新登陆");
+                        location.href = "/logout";
+                    } else {
+                        alert("修改失败！");
+                        return false;
+                    }
+                }
+            });
+        });
     })
 </script>
 <div class="row">
@@ -20,21 +39,24 @@
                 <div class="card-title">修改密码</div>
             </div>
             <div class="card-body">
-                <div class="form-group form-group-default">
-                    <label>原密码(原本没有则不填)</label>
-                    <input id="old-password" type="text" class="form-control" placeholder="原密码">
-                </div>
-                <div class="form-group form-group-default">
-                    <label>新密码</label>
-                    <input id="new-password" type="text" class="form-control" placeholder="原密码">
-                </div>
-                <div class="form-group form-group-default">
-                    <label>重复新密码</label>
-                    <input id="new-password-repeat" type="text" class="form-control" placeholder="原密码">
-                </div>
+                <form id="pwd-conf-form" role="form" action="" method="post">
+                    <div class="form-group form-group-default">
+                        <label>原密码(原本没有则不填)</label>
+                        <input id="old-password" type="text" name="old_pwd" class="form-control" placeholder="原密码">
+                    </div>
+                    <div class="form-group form-group-default">
+                        <label>新密码</label>
+                        <input id="new-password" type="text" class="form-control" name="new_pwd" placeholder="新密码">
+                    </div>
+                    <div class="form-group form-group-default">
+                        <label>重复新密码</label>
+                        <input id="new-password-repeat" type="text" class="form-control"
+                               placeholder="新密码">
+                    </div>
+                </form>
             </div>
             <div class="card-action">
-                <button class="btn btn-success">Submit</button>
+                <button id="pwd-conf-btn" class="btn btn-success">Submit</button>
                 <!--<button class="btn btn-danger">Cancel</button>-->
             </div>
         </div>

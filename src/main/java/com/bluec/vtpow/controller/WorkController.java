@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -36,6 +37,16 @@ public class WorkController {
         return res;
     }
 
+    //获取单个人自己的上传历史 拼表直接看workmapper
+    @RequestMapping(value = "/bus/peek_work_myhistory", method = RequestMethod.POST)
+    public @ResponseBody
+    List<UploadHistory> peekMyhistory(@RequestParam("work_id") int work_id, HttpSession httpSession) throws Exception {
+        String stu_id = (String) httpSession.getAttribute("id");
+        List<UploadHistory> res = workService.peekMyHistoryByWork(stu_id, work_id);
+        System.out.println(res);
+        return res;
+    }
+
     //获取单个人自己的提交记录
     @RequestMapping(value = "/get_own_history", method = RequestMethod.POST)
     public @ResponseBody
@@ -52,7 +63,7 @@ public class WorkController {
     int addWork(@RequestBody WorkApply workApply, HttpServletRequest request) throws Exception {
         System.out.println(workApply.toString());
         String msg = fileService.generateWorkPath(workApply);
-        if (msg == "duplicate") {
+        if (msg.equals("duplicate")) {
             return 0;//存在同名目录，重复的作业
         }
 

@@ -6,6 +6,7 @@ import com.bluec.vtpow.pagemodel.FullWorkInfo;
 import com.bluec.vtpow.po.UploadHistory;
 import com.bluec.vtpow.po.WorkApply;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,9 +21,15 @@ public interface WorkMapper {
 
     List<FullWorkInfo> getWork(String stu_id);
 
+    List<UploadHistory> peekMyHistoryByWork(@Param("stu_id") String stu_id, @Param("work_id") int work_id);
+
     String getPathByWorkId(int work_id);
 
     List<Integer> getExactHistory(String stu_id, int work_id);
+
+    UploadHistory getNewestUpload(@Param("work_id") int work_id, @Param("stu_id") String user_id);
+
+    UploadHistory getHistoryByFileName(@Param("file_name") String file_name);
 
     int uploadWork(int work_id, String fileName, String stu_id, int version);
 

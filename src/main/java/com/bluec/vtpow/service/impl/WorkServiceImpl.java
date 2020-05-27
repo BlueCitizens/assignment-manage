@@ -25,6 +25,13 @@ public class WorkServiceImpl {
         return workMapper.getWork(stu_id);
     }
 
+    public List<UploadHistory> peekMyHistoryByWork(String stu_id, int work_id) {
+        System.out.println(
+                stu_id + work_id + workMapper.peekMyHistoryByWork(stu_id, work_id)
+        );
+        return workMapper.peekMyHistoryByWork(stu_id, work_id);
+    }
+
     public String getPathByWorkId(int work_id) {
         return workMapper.getPathByWorkId(work_id);
     }
@@ -60,10 +67,11 @@ public class WorkServiceImpl {
             version = 1;
         }
         int i = workMapper.uploadWork(work_id, fileName, stu_id, version);
+        System.out.println("数据库返回行数" + i);
         if (i == 0) {
-            return "db ok";
+            return " db error";
         } else {
-            return "db error";
+            return " db ok";
         }
     }
 }

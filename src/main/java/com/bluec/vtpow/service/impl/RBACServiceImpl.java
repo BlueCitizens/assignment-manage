@@ -33,7 +33,7 @@ public class RBACServiceImpl implements RBACService {
             add("/index");
             add("/get_session");
             add("/bus/**");
-            add("/sys/work_list");
+            //add("/sys/work_list");
             add("/get_own_work");
             add("/get_all_work");
             add("/get_own_history");
