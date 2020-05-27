@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2020-05-28 00:07:46
+Date: 2020-05-28 00:30:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ CREATE TABLE `permission` (
   `url` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`pid`),
   UNIQUE KEY `permissionname_UNIQUE` (`permissionname`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of permission
@@ -53,6 +53,9 @@ INSERT INTO `permission` VALUES ('20', '查询所有课程', '/get_all_course');
 INSERT INTO `permission` VALUES ('21', '查看works', '/sys/work_list');
 INSERT INTO `permission` VALUES ('22', '查看成员', '/sys/stu_list');
 INSERT INTO `permission` VALUES ('23', '查看路径下文件', '/peek_path_filename');
+INSERT INTO `permission` VALUES ('24', '上传学生表', '/upload');
+INSERT INTO `permission` VALUES ('25', '批量保存学生', '/save_all');
+INSERT INTO `permission` VALUES ('26', '下载excel模板', '/dld_excel_temp');
 
 -- ----------------------------
 -- Table structure for role
@@ -81,7 +84,7 @@ CREATE TABLE `role_permission` (
   PRIMARY KEY (`rpid`),
   KEY `a_idx` (`roleid`),
   KEY `b_idx` (`permissionid`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of role_permission
@@ -94,6 +97,9 @@ INSERT INTO `role_permission` VALUES ('49', '17', '20');
 INSERT INTO `role_permission` VALUES ('50', '17', '21');
 INSERT INTO `role_permission` VALUES ('51', '17', '22');
 INSERT INTO `role_permission` VALUES ('52', '17', '23');
+INSERT INTO `role_permission` VALUES ('53', '17', '24');
+INSERT INTO `role_permission` VALUES ('54', '17', '25');
+INSERT INTO `role_permission` VALUES ('55', '17', '26');
 
 -- ----------------------------
 -- Table structure for upload_history
