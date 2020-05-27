@@ -14,10 +14,15 @@
 2020/5/28 第一个稳定可用的版本，优化文件逻辑和权限分支。
 
 增加或修改了以下逻辑：
+
 已提交的文件再次提交将覆盖同一任务前一次上传的文件（无视文件名）。若同名文件属于他人则返回冲突信息。
+
 附加相应权限的用户可以查看磁盘上任务对应文件路径下的所有文件，并打包下载该任务所有文件。
+
 已登录用户可查看当前用户单个任务的提交历史和所有提交历史。
+
 前端暂时没有权限控制。暂时只能对照url修改数据库permission以及关联表项
+
   
   ![stulist](https://github.com/BlueCitizens/work-manage/blob/master/screenshots/stulist.gif)
   ![stulist](https://github.com/BlueCitizens/work-manage/blob/master/screenshots/uploadwork.gif)
