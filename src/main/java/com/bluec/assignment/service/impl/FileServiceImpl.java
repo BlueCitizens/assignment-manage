@@ -92,11 +92,16 @@ public class FileServiceImpl {
         }
         //上传逻辑优化 上传新文件先删除对应旧文件
         UploadHistory uploadHistory = workMapper.getNewestUpload(work_id, stu_id);
-        System.out.println("旧的文件名：" + uploadHistory.getFile_name());
+//        System.out.println("uploadHistory_____"+uploadHistory);
         String msg = "";
-        String path = workMapper.getPathByWorkId(work_id);
-        deleteFile(path + "\\" + uploadHistory.getFile_name());
-        System.out.println(path);
+        if (uploadHistory != null){
+            System.out.println("旧的文件名：" + uploadHistory.getFile_name());
+
+            String path = workMapper.getPathByWorkId(work_id);
+            deleteFile(path + "\\" + uploadHistory.getFile_name());
+            System.out.println(path);
+        }
+
         int index;
         byte[] bytes = new byte[1024];
         File file = new File(path, fileName);

@@ -1,15 +1,12 @@
-package com.bluec.vtpow;
+package com.bluec.assignment;
 
-import com.bluec.vtpow.util.FileUtil;
-import com.bluec.vtpow.util.ZipUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
-import java.io.OutputStream;
 
 @SpringBootTest
-class VtpowApplicationTests {
+class MainApplicationTests {
 
     @Test
     void contextLoads() throws IOException {
