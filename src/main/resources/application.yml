@@ -15,9 +15,9 @@ spring:
     #mysql驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    #基本属性
-    url: jdbc:mysql://localhost:3306/zuoye?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    url: jdbc:mysql://192.168.50.117:3306/assignment?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
     username: root
-    password: 123456
+    password: 794171354
 
     #druid相关配置
   druid:
@@ -40,4 +40,4 @@ spring:
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.bluec.vtpow.po
+  type-aliases-package: com.bluec.assignment.po

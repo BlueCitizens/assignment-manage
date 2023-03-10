@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.bluec</groupId>
-    <artifactId>vtpow</artifactId>
+    <artifactId>assignment-manage</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>vtpow</name>
+    <name>assignment-manage</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

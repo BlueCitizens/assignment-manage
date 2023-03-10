@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bluec.vtpow.mapper.WorkMapper">
-    <!--    <resultMap id="getUploadMap" type="com.bluec.vtpow.pagemodel.FullWorkInfo">
+<mapper namespace="com.bluec.assignment.mapper.WorkMapper">
+    <!--    <resultMap id="getUploadMap" type="com.bluec.assignment.pagemodel.FullWorkInfo">
             <id property=""/>
         </resultMap>-->
 
     <!-- 查询所有 -->
-    <select id="findAll" resultType="com.bluec.vtpow.po.User">
-        SELECT * FROM user
+    <select id="findAll" resultType="com.bluec.assignment.po.User">
+        SELECT * FROM user;
     </select>
-    <select id="getAllCourse" resultType="com.bluec.vtpow.pagemodel.Course">
+    <select id="getAllCourse" resultType="com.bluec.assignment.pagemodel.Course">
 		SELECT  * FROM course;
 	</select>
     <select id="getPathByWorkId" resultType="String">
         SELECT path FROM worklist where work_id = #{work_id};
     </select>
 
-    <select id="getWork" resultType="com.bluec.vtpow.pagemodel.FullWorkInfo">
+    <select id="getWork" resultType="com.bluec.assignment.pagemodel.FullWorkInfo">
         SELECT
 	*
 FROM
@@ -50,7 +50,7 @@ FROM
 		) AS single_works
 	);
     </select>
-    <select id="getAllWork" resultType="com.bluec.vtpow.pagemodel.Work">
+    <select id="getAllWork" resultType="com.bluec.assignment.pagemodel.Work">
 		SELECT
 	tab3.*, course_name
 FROM
@@ -84,19 +84,19 @@ LEFT JOIN course ON course.course_id = tab3.course_id
     <select id="getExactHistory" resultType="Integer">
         SELECT version FROM upload_history WHERE stu_id = #{stu_id} AND work_id = #{work_id};
     </select>
-    <select id="getHistoryByStuId" resultType="com.bluec.vtpow.po.UploadHistory">
+    <select id="getHistoryByStuId" resultType="com.bluec.assignment.po.UploadHistory">
         SELECT * FROM upload_history WHERE stu_id = #{stu_id} order by business_id desc;
     </select>
-    <select id="getHistoryByFileName" resultType="com.bluec.vtpow.po.UploadHistory">
+    <select id="getHistoryByFileName" resultType="com.bluec.assignment.po.UploadHistory">
         select * from upload_history where file_name = #{file_name};
     </select>
-    <select id="peekMyHistoryByWork" resultType="com.bluec.vtpow.po.UploadHistory">
+    <select id="peekMyHistoryByWork" resultType="com.bluec.assignment.po.UploadHistory">
         select * from upload_history where stu_id = #{stu_id} and work_id = #{work_id} order by version desc;
     </select>
-    <select id="getNewestUpload" resultType="com.bluec.vtpow.po.UploadHistory">
+    <select id="getNewestUpload" resultType="com.bluec.assignment.po.UploadHistory">
         select * from upload_history where work_id = #{work_id} and stu_id=#{stu_id} order by version desc limit 1;
     </select>
-    <insert id="addWork" parameterType="com.bluec.vtpow.po.WorkApply">
+    <insert id="addWork" parameterType="com.bluec.assignment.po.WorkApply">
         INSERT INTO worklist(work_name, course_id, naming_rule, path, deadline, status) VALUES (#{work_name}, #{course_id}, #{naming_rule}, #{path}, #{deadline}, #{status});
     </insert>
     <insert id="uploadWork">
