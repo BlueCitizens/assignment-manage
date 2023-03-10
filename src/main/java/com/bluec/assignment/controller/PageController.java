@@ -40,11 +40,6 @@ public class PageController {
         return "404";
     }
 
-    @GetMapping("demo")
-    public String getDemo() {
-        return "business/demo";
-    }
-
     @GetMapping("/bus/upload_history")
     public String getHistory() {
         return "business/history";

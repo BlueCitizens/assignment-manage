@@ -68,7 +68,7 @@ public class WorkServiceImpl {
         }
         int i = workMapper.uploadWork(work_id, fileName, stu_id, version);
         System.out.println("数据库返回行数" + i);
-        if (i == 0) {
+        if (i == -1) {
             return " db error";
         } else {
             return " db ok";

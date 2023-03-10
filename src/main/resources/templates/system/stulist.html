@@ -70,21 +70,6 @@
                         data[i].password,
                         action
                     ]);
-                    /*var row = document.createElement('tr');
-                    // 创建td单元格
-                    var idCell = document.createElement('td');
-                    var name_Cell = document.createElement('td');
-                    var pwd_Cell = document.createElement('td');
-                    // 给创建的td单元格填充数据
-                    idCell.innerHTML = data[i].stu_id;
-                    name_Cell.innerHTML = data[i].username;
-                    pwd_Cell.innerHTML = data[i].password;
-                    // 将新建的td加入新建的tr行
-                    row.appendChild(idCell);
-                    row.appendChild(name_Cell);
-                    row.appendChild(pwd_Cell);
-                    // 将这行加到tbody
-                    tbody.appendChild(row);*/
                 }
             },
             error: function (responseStr) {
@@ -331,15 +316,5 @@
 
         var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 
-        /*        $('#addRowButton').click(function () {
-                    $('#add-row').dataTable().fnAddData([
-                        $("#addName").val(),
-                        $("#addPosition").val(),
-                        $("#addOffice").val(),
-                        action
-                    ]);
-                    $('#addRowModal').modal('hide');
-
-                });*/
     });
 </script>
