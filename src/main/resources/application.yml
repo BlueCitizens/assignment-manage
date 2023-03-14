@@ -15,9 +15,10 @@ spring:
     #mysql驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    #基本属性
-    url: jdbc:mysql://192.168.50.117:3306/assignment?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3306/assignment?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true
     username: root
-    password: 794171354
+    # password: your_password
+    password: 123456
 
     #druid相关配置
   druid:
